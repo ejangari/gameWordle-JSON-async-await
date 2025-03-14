@@ -58,10 +58,6 @@ document.addEventListener('keydown', async function (event) {
             // console.log('Adiciono letter to letterOfWordToGuess: '+letterOfWordToGuess+'  FUERA del if del NextSElementibling');
             // console.log('Adiciono letter to idCurrentLetterOnSquare: '+idCurrentLetterOnSquare+'  FUERA del if del NextSElementibling');
 
-
-
-
-
             //Debe presionar Enter o Borrar
             //Si no tiene nextElementSibling, el usuario debe pasar o q presiona enter o backspace
             //console.log("No tiene nextElementSibling, el usuario debe pasar o q presiona enter o backspace");   
