@@ -13,6 +13,7 @@ let squareOrange;
 
 let wordOfDay='';
 let idCurrentSquare;
+let loadPage=false;
 
 // Event listener for keydown event
 document.addEventListener('keydown', async function (event) {
@@ -104,18 +105,20 @@ document.addEventListener('keydown', async function (event) {
             /*let wordOfDay = await getWord();
             console.log('palabra a adivinar: ' + wordOfDay);*/
 
-            console.log(wordOfDay === wordInserted);
+            console.log('wordOfDay es === a wordInserted: '+wordOfDay === wordInserted);
             if (wordOfDay === wordInserted) {
-                alert('You win');
+                //alert('You win');
+                loadPage=false;
                 //poner en verde la palabra
                 for(let i=0; i<wordInserted.length;i++){
                     squareGreen = document.getElementById(idCurrentLetterOnSquare[i]);
                     squareGreen.style.background = "green";
                 }
+                reloadPage(loadPage);
                 return;
             } else {
 
-                console.log('Buen intento pero no es la palabra del dia');
+                console.log('Buen intento pero no es la palabra del dia, vamos a colocar los colores de las letras que si aparecen en la palabra del dia');
 
                 const itemCountsWordDay = countItems(wordOfDay);
                 //console.log('itemCountsWordDay: ' + JSON.stringify(itemCountsWordDay));
@@ -265,10 +268,14 @@ document.addEventListener('keydown', async function (event) {
                             console.log('Despues keysWordInserted['+m+']: '+keysWordInserted[m]);
                         }
                     }//Fin m=0
-                    console.log('Se salio del FOR del tamano de las letras ingresadas sin repetir, m=0');
+                    console.log('Se salio del FOR M=0 del tamano de las letras de la palabra ingresada sin repetir');
                 }//Fin j=0  
+                console.log('Se salio del FOR J=0 del tamano de las letras de la palabra del dia sin repetir');
             }
+            console.log('Se salio del else cuando worDay y WordInserted no son iguales');
+
             //Cuando ya ingreso toda la palabra y presiono enter no debe dejar escribir mas letras en esa linea y debe pasar a la sgte linea
+            console.log('Debe pasar a la sgte Linea: currentLine.nextElementSibling ANTES DEL IF '+currentLine); 
             console.log(currentLine.nextElementSibling);
             if (currentLine.nextElementSibling) {
                 console.log('Debe pasar a la sgte Linea: currentLine.nextElementSibling '+currentLine); 
@@ -287,8 +294,8 @@ document.addEventListener('keydown', async function (event) {
                 idCurrentLetterOnSquare = [];
 
             } else {
-                console.log('No hay mas lineas para escribir DEBERA EL LISTENER PARAR DE ESCUCHAR????');
-                return false;
+                loadPage=true;
+                reloadPage(loadPage);             
             }
         }else{
             alert(JSON.stringify(wordInserted)+' is not a valid word, let\'s try again');
@@ -315,6 +322,9 @@ document.addEventListener('keydown', async function (event) {
                 idCurrentLetterOnSquare = [];
                 //currentSquare.textContent = "";
 
+            }else{
+                loadPage=true;
+                reloadPage(loadPage);
             }
         }
            
@@ -372,7 +382,7 @@ document.addEventListener('keydown', async function (event) {
                     deleteColorOfIdCurrentLetterOnSquare = '';
                     console.log('EDDYJO -     '+document.getElementById(idCurrentSquare));
                     deleteColorOfIdCurrentLetterOnSquare = document.getElementById(idCurrentSquare);
-                    deleteColorOfIdCurrentLetterOnSquare.style.background = "gray";
+                    deleteColorOfIdCurrentLetterOnSquare.style.background = "white";
                     
                     console.log('Nuevo wordInserted.length DESPUES de haber borrado la letra: '+wordInserted.length);
                     console.log('Nuevo currentSquare.textContent DESPUES de haber borrado la letra: '+currentSquare.textContent);
@@ -391,15 +401,11 @@ document.addEventListener('keydown', async function (event) {
         }
 
 
-    } else {
-        console.log('Special key pressed, don\'t do anything');
+    }else {
+        console.log(event.code+' and '+event.key+' special key pressed, don\'t do anything');
         //document.removeEventListener('keydown', handleKeyDown); // Remove listener after keyDown
-        return false;
+        //return false;
     }
-    /*if(event.code.startsWith('Digit')){
-        console.log('Digit key pressed');
-
-    }else */
 });
 
 
@@ -439,5 +445,24 @@ function countItems(arr) {
         }
     }
     return counts;
+}
+
+function reloadPage() {
+    console.log('No hay mas lineas para escribir DEBERA EL LISTENER PARAR DE ESCUCHAR????');
+    const loser = document.querySelector('h1');
+
+    if(loadPage){
+        loser.style.color = "red";
+        loser.textContent += ' - You lose this Game';
+    
+        //this.location.reload();
+        setTimeout(function() {
+        location.reload();
+      }, 8000); // Refresh after 7 seconds   
+    }else{
+        loser.style.color = "blue";
+        loser.textContent += ' - You WIN this Game';
+    }
+
 }
 
