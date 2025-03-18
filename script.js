@@ -448,7 +448,7 @@ function reloadPage() {
 
     if(loadPage){
         loser.style.color = "red";
-        loser.textContent += ' - You lose this Game';
+        loser.textContent += ' - You lose this Game, the word was: '+wordOfDay;
         delay = 8000;
     }
     else{
