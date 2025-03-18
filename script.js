@@ -101,234 +101,228 @@ document.addEventListener('keydown', async function (event) {
             console.log("Es una palabra valida: "+isValidWord);
 
             if(isValidWord){
-            //let wordOfDay = ['a', 't', 'm', 'a', 's'];//await getWord();
-            /*let wordOfDay = await getWord();
-            console.log('palabra a adivinar: ' + wordOfDay);*/
+                console.log('wordOfDay es === a wordInserted: '+wordOfDay === wordInserted);
+                if (wordOfDay === wordInserted) {
+                    //alert('You win');
+                    loadPage=false;
+                    //poner en verde la palabra
+                    for(let i=0; i<wordInserted.length;i++){
+                        squareGreen = document.getElementById(idCurrentLetterOnSquare[i]);
+                        squareGreen.style.background = "green";
+                    }
+                    reloadPage(loadPage);
+                    return;
+                } else {
 
-            console.log('wordOfDay es === a wordInserted: '+wordOfDay === wordInserted);
-            if (wordOfDay === wordInserted) {
-                //alert('You win');
-                loadPage=false;
-                //poner en verde la palabra
-                for(let i=0; i<wordInserted.length;i++){
-                    squareGreen = document.getElementById(idCurrentLetterOnSquare[i]);
-                    squareGreen.style.background = "green";
-                }
-                reloadPage(loadPage);
-                return;
-            } else {
+                    console.log('Buen intento pero no es la palabra del dia, vamos a colocar los colores de las letras que si aparecen en la palabra del dia');
 
-                console.log('Buen intento pero no es la palabra del dia, vamos a colocar los colores de las letras que si aparecen en la palabra del dia');
-
-                const itemCountsWordDay = countItems(wordOfDay);
-                //console.log('itemCountsWordDay: ' + JSON.stringify(itemCountsWordDay));
-                // itemCountsWordDay:{
-                //     "a":{                    //keysWordDay
-                //         "count":2,
-                //         "position":[0,3]
-                //         },
-                //     "t":{                    //keysWordDay
-                //         "count":1,
-                //         "position":[1]
-                //         },
-                //     "m":{                    //keysWordDay
-                //         "count":1,
-                //         "position":[2]
-                //         },
-                //     "s":{                    //keysWordDay
-                //         "count":1,
-                //         "position":[4]
-                //         }
-                // }
-                const keysWordDay = Object.keys(itemCountsWordDay);
-                // console.log('keysWordDay: ' + keysWordDay); //keysWordDay: a,t,m,s    Es cada letra del array de la palabra del dia sin repetir
-                // console.log('keysWordDay.length: ' + keysWordDay.length); //keysWordDay.length: 4
+                    const itemCountsWordDay = countItems(wordOfDay);
+                    //console.log('itemCountsWordDay: ' + JSON.stringify(itemCountsWordDay));
+                    // itemCountsWordDay:{
+                    //     "a":{                    //keysWordDay
+                    //         "count":2,
+                    //         "position":[0,3]
+                    //         },
+                    //     "t":{                    //keysWordDay
+                    //         "count":1,
+                    //         "position":[1]
+                    //         },
+                    //     "m":{                    //keysWordDay
+                    //         "count":1,
+                    //         "position":[2]
+                    //         },
+                    //     "s":{                    //keysWordDay
+                    //         "count":1,
+                    //         "position":[4]
+                    //         }
+                    // }
+                    const keysWordDay = Object.keys(itemCountsWordDay);
+                    // console.log('keysWordDay: ' + keysWordDay); //keysWordDay: a,t,m,s    Es cada letra del array de la palabra del dia sin repetir
+                    // console.log('keysWordDay.length: ' + keysWordDay.length); //keysWordDay.length: 4
 
 
-                const itemCountsWordInserted = countItems(wordInserted);
-                //console.log('itemCountsWordInserted: ' + JSON.stringify(itemCountsWordInserted));
-                // itemCountsWordInserted: {
-                //     "a":{                        //keysWordInserted
-                //         "count":2,
-                //         "position":[0,4]
-                //         },
-                //     "m":{                        //keysWordInserted
-                //         "count":2,
-                //         "position":[1,2]
-                //         },
-                //     "s":{                        //keysWordInserted
-                //         "count":1,
-                //         "position":[3]
-                //         }
-                // }
-                const keysWordInserted = Object.keys(itemCountsWordInserted);
-                //console.log('keysWordInserted: ' + keysWordInserted); //keysWordInserted: a,m,s    Es cada letra del array de la palabra del dia sin repetir
-                console.log('-------Antes del primre FOR j=0, keysWordDay.length: ' + keysWordDay.length); //keysWordDay.length:
+                    const itemCountsWordInserted = countItems(wordInserted);
+                    //console.log('itemCountsWordInserted: ' + JSON.stringify(itemCountsWordInserted));
+                    // itemCountsWordInserted: {
+                    //     "a":{                        //keysWordInserted
+                    //         "count":2,
+                    //         "position":[0,4]
+                    //         },
+                    //     "m":{                        //keysWordInserted
+                    //         "count":2,
+                    //         "position":[1,2]
+                    //         },
+                    //     "s":{                        //keysWordInserted
+                    //         "count":1,
+                    //         "position":[3]
+                    //         }
+                    // }
+                    const keysWordInserted = Object.keys(itemCountsWordInserted);
+                    //console.log('keysWordInserted: ' + keysWordInserted); //keysWordInserted: a,m,s    Es cada letra del array de la palabra del dia sin repetir
+                    console.log('-------Antes del primre FOR j=0, keysWordDay.length: ' + keysWordDay.length); //keysWordDay.length:
 
-                for (j = 0; j < keysWordDay.length; j++) { //keysWordDay.length: 4
-                    //console.log('keysWordDay[' + j + ']: ' + keysWordDay[j]);
-                    // keysWordDay[0]: a
-                    // keysWordDay[1]: t
-                    // keysWordDay[2]: m
-                    // keysWordDay[3]: s
+                    for (j = 0; j < keysWordDay.length; j++) { //keysWordDay.length: 4
+                        //console.log('keysWordDay[' + j + ']: ' + keysWordDay[j]);
+                        // keysWordDay[0]: a
+                        // keysWordDay[1]: t
+                        // keysWordDay[2]: m
+                        // keysWordDay[3]: s
 
-                    const countWordDay = itemCountsWordDay[keysWordDay[j]];
-                    //console.log('countWordDay : ' + JSON.stringify(countWordDay));
-                    //countWordDay: {"count":2,"position":[0,3]}                Letra a de la palabra del dia
-                    // countWordDay: {"count":1,"position":[1]}                 Letra t de la palabra del dia
-                    // countWordDay: {"count":1,"position":[2]}                 Letra m de la palabra del dia
-                    // countWordDay: {"count":1,"position":[4]}                 Letra s de la palabra del dia
-                    
-                    //console.log('countWordDay.count: ' + countWordDay.count);
-                    //countWordDay.count: 2
-                    //countWordDay.count: 1
-                    //countWordDay.count: 1
-                    //countWordDay.count: 1
-
-
-
-                    console.log('-------Antes del primre FOR m=0, keysWordInserted.length: ' + keysWordInserted.length); //keysWordInserted.length:
-                    for (m = 0; m < keysWordInserted.length;) { //keysWordInserted.length: 3
-                        //console.log('keysWordInserted[' + m + ']: ' + keysWordInserted[m]);
-                        // keysWordInserted[0]: a
-                        // keysWordInserted[2]: m
-                        // keysWordInserted[3]: s
-
-                        const countWordInserted = itemCountsWordInserted[keysWordInserted[m]];
-                        console.log('countWordInserted : ' + JSON.stringify(countWordInserted));
-                        //countWordInserted: {"count":2,"position":[0,4]}                Letra l de la palabra del dia
-                        // countWordInserted: {"count":1,"position":[1]}                 Letra o de la palabra del dia
-                        // countWordInserted: {"count":1,"position":[2]}                 Letra c de la palabra del dia
-                        // countWordInserted: {"count":1,"position":[3]}                 Letra a de la palabra del dia
+                        const countWordDay = itemCountsWordDay[keysWordDay[j]];
+                        //console.log('countWordDay : ' + JSON.stringify(countWordDay));
+                        //countWordDay: {"count":2,"position":[0,3]}                Letra a de la palabra del dia
+                        // countWordDay: {"count":1,"position":[1]}                 Letra t de la palabra del dia
+                        // countWordDay: {"count":1,"position":[2]}                 Letra m de la palabra del dia
+                        // countWordDay: {"count":1,"position":[4]}                 Letra s de la palabra del dia
                         
-                        //console.log('countWordInserted.count: ' + countWordInserted.count);
-                        //countWordInserted.count: 2
-                        //countWordInserted.count: 1
-                        //countWordInserted.count: 1
-                        //countWordInserted.count: 1
-                        
-
-                        console.log('Son iguales las letras????? ' + keysWordDay[j] + ' === ' + keysWordInserted[m]);
-                        //Son iguales las letras:
-                        if (keysWordDay[j] === keysWordInserted[m]) {
-                            console.log('Si son iguales las letras: ' + keysWordDay[j] + ' === ' + keysWordInserted[m]);
-                            //validar posiciones y cantidad de veces q se repite la letra
-
-                            console.log('...FOR i=0 hasta donde countWordDay.count es:' + countWordDay.count);
-                            for (i = 0; i < countWordDay.count;) {
-                                console.log('...keysWordDay[j]: '+keysWordDay[j]+ ' & Position WordDay: ' + countWordDay.position[i]);  //Son las posiciones de la letra en la palabra del dia en la q esta la letra
-                                // Position WordDay: 0
-                                // Position WordDay: 3
+                        //console.log('countWordDay.count: ' + countWordDay.count);
+                        //countWordDay.count: 2
+                        //countWordDay.count: 1
+                        //countWordDay.count: 1
+                        //countWordDay.count: 1
 
 
-                                //Debo averiguar la posicion de la letra en lapalabra insertada si es la misma de la posicion palabra del dia??
 
-                                console.log('......FOR n=0 hasta donde countWordInserted.count es: ' + countWordInserted.count);
-                                for (n = 0; n < countWordInserted.count;n++) {
-                                    console.log('Entro al for de N=0');
-                                    console.log('......keysWordInserted[m]: '+keysWordInserted[m]+ ' & Position WordInserted: ' + countWordInserted.position[n]);  //Son las posiciones de la letra en la palabra del dia en la q esta la letra
-                                    // Position WordInserted: 3
+                        console.log('-------Antes del primre FOR m=0, keysWordInserted.length: ' + keysWordInserted.length); //keysWordInserted.length:
+                        for (m = 0; m < keysWordInserted.length;) { //keysWordInserted.length: 3
+                            //console.log('keysWordInserted[' + m + ']: ' + keysWordInserted[m]);
+                            // keysWordInserted[0]: a
+                            // keysWordInserted[2]: m
+                            // keysWordInserted[3]: s
 
-
-                                    console.log('--------countWordDay.position['+i+']: ' + countWordDay.position[i] + ' & countWordInserted.position['+n+']: ' + countWordInserted.position[n]);
-                                    if(countWordDay.position[i] === countWordInserted.position[n]){
-                                        //ponga en verde la cantidad de los cuadros exactos
-                                        console.log('VERDE idCurrentLetterOnSquare: '+idCurrentLetterOnSquare[countWordInserted.position[n]]);
-                                        squareGreen = document.getElementById(idCurrentLetterOnSquare[countWordInserted.position[n]]);
-                                        squareGreen.style.background = "green";
-                                        console.log('************squareGreen.style.background: ' + squareGreen.style.background);
-                                        i++;
-                                    }else{
-                                        console.log('No son iguales las posiciones aunque las letras seasn las mismas, entonces hay q poner el color naranja en la posicion de la letra adivinada');
-                                        //ponga en naranja la cantidad de los cuadros exactos
-                                        console.log('ORANGE idCurrentLetterOnSquare: '+idCurrentLetterOnSquare[countWordInserted.position[n]]);
-                                        squareOrange = document.getElementById(idCurrentLetterOnSquare[countWordInserted.position[n]]);
-                                        squareOrange.style.background = "orange";
-                                        console.log('************squareGreen.style.background: ' + squareOrange.style.background);
-                                        i++;
-                                    }
-                                    console.log('Se salio del IF donde se comparan las posiciones de las letras');
-                                }//Fin n=0
-                                console.log('Se salio del FOR de las posiciones de las letras de la palabra ingresada, donde n=0');
-                                console.log('j: '+j+' m:'+m+' n= '+n+' y countWordInserted.count:'+countWordInserted.count+' ,keysWordDay[j]: ' +keysWordDay[j] + ' , keysWordInserted[m]: '+keysWordInserted[m]);
-                                //i++;
-                                console.log('i= '+i+' y countWordDay.count: '+countWordDay.count);
-                            }//Fin i=0
-                            console.log('Se salio del FOR de las posiciones de las letras de la palabra del dia, donde i=0');
-                            m++;
-                        }else{
-                            //No son iguales las letras ingresadas
-                            console.log('-------------No son iguales las letras ingresadas, que debemos hacer???');
+                            const countWordInserted = itemCountsWordInserted[keysWordInserted[m]];
+                            console.log('countWordInserted : ' + JSON.stringify(countWordInserted));
+                            //countWordInserted: {"count":2,"position":[0,4]}                Letra l de la palabra del dia
+                            // countWordInserted: {"count":1,"position":[1]}                 Letra o de la palabra del dia
+                            // countWordInserted: {"count":1,"position":[2]}                 Letra c de la palabra del dia
+                            // countWordInserted: {"count":1,"position":[3]}                 Letra a de la palabra del dia
                             
-                            //Debo pasar a la siguiente letra de la palabra ingresada, para ver si esta dentro de la palabra del dia, osea aumentar el M del keyWordInserted
-                            console.log('Antes el m: '+m);
-                            console.log('Antes keysWordInserted['+m+']: '+keysWordInserted[m]);
-                            m++;
-                            console.log('despues el m: '+m);
-                            console.log('Despues keysWordInserted['+m+']: '+keysWordInserted[m]);
-                        }
-                    }//Fin m=0
-                    console.log('Se salio del FOR M=0 del tamano de las letras de la palabra ingresada sin repetir');
-                }//Fin j=0  
-                console.log('Se salio del FOR J=0 del tamano de las letras de la palabra del dia sin repetir');
-            }
-            console.log('Se salio del else cuando worDay y WordInserted no son iguales');
+                            //console.log('countWordInserted.count: ' + countWordInserted.count);
+                            //countWordInserted.count: 2
+                            //countWordInserted.count: 1
+                            //countWordInserted.count: 1
+                            //countWordInserted.count: 1
+                            
 
-            //Cuando ya ingreso toda la palabra y presiono enter no debe dejar escribir mas letras en esa linea y debe pasar a la sgte linea
-            console.log('Debe pasar a la sgte Linea: currentLine.nextElementSibling ANTES DEL IF '+currentLine); 
-            console.log(currentLine.nextElementSibling);
-            if (currentLine.nextElementSibling) {
-                console.log('Debe pasar a la sgte Linea: currentLine.nextElementSibling '+currentLine); 
-                currentLine = currentLine.nextElementSibling;    //Sgte fila guessLine2
-                console.log('Debe pasar de linea currentLine: '+currentLine.className);
-                classNameCurrentLine = currentLine.className;
-                console.log('classNameCurrentLine: '+classNameCurrentLine);
+                            console.log('Son iguales las letras????? ' + keysWordDay[j] + ' === ' + keysWordInserted[m]);
+                            //Son iguales las letras:
+                            if (keysWordDay[j] === keysWordInserted[m]) {
+                                console.log('Si son iguales las letras: ' + keysWordDay[j] + ' === ' + keysWordInserted[m]);
+                                //validar posiciones y cantidad de veces q se repite la letra
+
+                                console.log('...FOR i=0 hasta donde countWordDay.count es:' + countWordDay.count);
+                                for (i = 0; i < countWordDay.count;) {
+                                    console.log('...keysWordDay[j]: '+keysWordDay[j]+ ' & Position WordDay: ' + countWordDay.position[i]);  //Son las posiciones de la letra en la palabra del dia en la q esta la letra
+                                    // Position WordDay: 0
+                                    // Position WordDay: 3
 
 
-                currentSquare = currentSquare.nextElementSibling;
-                console.log('currentSquare de la siguiente linea: '+currentLine.nextElementSibling);
-                currentSquare = currentLine.firstElementChild;
+                                    //Debo averiguar la posicion de la letra en lapalabra insertada si es la misma de la posicion palabra del dia??
 
-                wordInserted = "";
-                letterOfWordToGuess = [];
-                idCurrentLetterOnSquare = [];
+                                    console.log('......FOR n=0 hasta donde countWordInserted.count es: ' + countWordInserted.count);
+                                    for (n = 0; n < countWordInserted.count;n++) {
+                                        console.log('Entro al for de N=0');
+                                        console.log('......keysWordInserted[m]: '+keysWordInserted[m]+ ' & Position WordInserted: ' + countWordInserted.position[n]);  //Son las posiciones de la letra en la palabra del dia en la q esta la letra
+                                        // Position WordInserted: 3
 
-            } else {
-                loadPage=true;
-                reloadPage(loadPage);             
-            }
-        }else{
-            alert(JSON.stringify(wordInserted)+' is not a valid word, let\'s try again');
-            wordInserted = "";
-            letterOfWordToGuess=[];
-            idCurrentLetterOnSquare=[];
-            //currentSquare.textContent = "";
-            
-            //Cuando ya ingreso toda la palabra y presiono enter no debe dejar escribir mas letras en esa linea y debe pasar a la sgte linea
-            console.log(currentLine.nextElementSibling);
-            if (currentLine.nextElementSibling) {
-                console.log('Debe pasar a la sgte Linea: currentLine.nextElementSibling '+currentLine); 
-                currentLine = currentLine.nextElementSibling;    //Sgte fila guessLine2
-                console.log('Debe pasar de linea currentLine: '+currentLine.className);
-                classNameCurrentLine = currentLine.className;
-                console.log('classNameCurrentLine: '+classNameCurrentLine);
 
-                currentSquare = currentSquare.nextElementSibling;
-                console.log('currentSquare de la siguiente linea: '+currentLine.nextElementSibling);
-                currentSquare = currentLine.firstElementChild;
+                                        console.log('--------countWordDay.position['+i+']: ' + countWordDay.position[i] + ' & countWordInserted.position['+n+']: ' + countWordInserted.position[n]);
+                                        if(countWordDay.position[i] === countWordInserted.position[n]){
+                                            //ponga en verde la cantidad de los cuadros exactos
+                                            console.log('VERDE idCurrentLetterOnSquare: '+idCurrentLetterOnSquare[countWordInserted.position[n]]);
+                                            squareGreen = document.getElementById(idCurrentLetterOnSquare[countWordInserted.position[n]]);
+                                            squareGreen.style.background = "green";
+                                            console.log('************squareGreen.style.background: ' + squareGreen.style.background);
+                                            i++;
+                                        }else{
+                                            console.log('No son iguales las posiciones aunque las letras seasn las mismas, entonces hay q poner el color naranja en la posicion de la letra adivinada');
+                                            //ponga en naranja la cantidad de los cuadros exactos
+                                            console.log('ORANGE idCurrentLetterOnSquare: '+idCurrentLetterOnSquare[countWordInserted.position[n]]);
+                                            squareOrange = document.getElementById(idCurrentLetterOnSquare[countWordInserted.position[n]]);
+                                            squareOrange.style.background = "orange";
+                                            console.log('************squareGreen.style.background: ' + squareOrange.style.background);
+                                            i++;
+                                        }
+                                        console.log('Se salio del IF donde se comparan las posiciones de las letras');
+                                    }//Fin n=0
+                                    console.log('Se salio del FOR de las posiciones de las letras de la palabra ingresada, donde n=0');
+                                    console.log('j: '+j+' m:'+m+' n= '+n+' y countWordInserted.count:'+countWordInserted.count+' ,keysWordDay[j]: ' +keysWordDay[j] + ' , keysWordInserted[m]: '+keysWordInserted[m]);
+                                    //i++;
+                                    console.log('i= '+i+' y countWordDay.count: '+countWordDay.count);
+                                }//Fin i=0
+                                console.log('Se salio del FOR de las posiciones de las letras de la palabra del dia, donde i=0');
+                                m++;
+                            }else{
+                                //No son iguales las letras ingresadas
+                                console.log('-------------No son iguales las letras ingresadas, que debemos hacer???');
+                                
+                                //Debo pasar a la siguiente letra de la palabra ingresada, para ver si esta dentro de la palabra del dia, osea aumentar el M del keyWordInserted
+                                console.log('Antes el m: '+m);
+                                console.log('Antes keysWordInserted['+m+']: '+keysWordInserted[m]);
+                                m++;
+                                console.log('despues el m: '+m);
+                                console.log('Despues keysWordInserted['+m+']: '+keysWordInserted[m]);
+                            }
+                        }//Fin m=0
+                        console.log('Se salio del FOR M=0 del tamano de las letras de la palabra ingresada sin repetir');
+                    }//Fin j=0  
+                    console.log('Se salio del FOR J=0 del tamano de las letras de la palabra del dia sin repetir');
+                }
+                console.log('Se salio del else cuando worDay y WordInserted no son iguales');
 
-                wordInserted = "";
-                letterOfWordToGuess = [];
-                idCurrentLetterOnSquare = [];
-                //currentSquare.textContent = "";
+                //Cuando ya ingreso toda la palabra y presiono enter no debe dejar escribir mas letras en esa linea y debe pasar a la sgte linea
+                console.log('Debe pasar a la sgte Linea: currentLine.nextElementSibling ANTES DEL IF '+currentLine); 
+                console.log(currentLine.nextElementSibling);
+                if (currentLine.nextElementSibling) {
+                    console.log('Debe pasar a la sgte Linea: currentLine.nextElementSibling '+currentLine); 
+                    currentLine = currentLine.nextElementSibling;    //Sgte fila guessLine2
+                    console.log('Debe pasar de linea currentLine: '+currentLine.className);
+                    classNameCurrentLine = currentLine.className;
+                    console.log('classNameCurrentLine: '+classNameCurrentLine);
 
+
+                    currentSquare = currentSquare.nextElementSibling;
+                    console.log('currentSquare de la siguiente linea: '+currentLine.nextElementSibling);
+                    currentSquare = currentLine.firstElementChild;
+
+                    wordInserted = "";
+                    letterOfWordToGuess = [];
+                    idCurrentLetterOnSquare = [];
+
+                } else {
+                    loadPage=true;
+                    reloadPage(loadPage);             
+                }
             }else{
-                loadPage=true;
-                reloadPage(loadPage);
+                alert(JSON.stringify(wordInserted)+' is not a valid word, let\'s try again');
+                wordInserted = "";
+                letterOfWordToGuess=[];
+                idCurrentLetterOnSquare=[];
+                //currentSquare.textContent = "";
+                
+                //Cuando ya ingreso toda la palabra y presiono enter no debe dejar escribir mas letras en esa linea y debe pasar a la sgte linea
+                console.log(currentLine.nextElementSibling);
+                if (currentLine.nextElementSibling) {
+                    console.log('Debe pasar a la sgte Linea: currentLine.nextElementSibling '+currentLine); 
+                    currentLine = currentLine.nextElementSibling;    //Sgte fila guessLine2
+                    console.log('Debe pasar de linea currentLine: '+currentLine.className);
+                    classNameCurrentLine = currentLine.className;
+                    console.log('classNameCurrentLine: '+classNameCurrentLine);
+
+                    currentSquare = currentSquare.nextElementSibling;
+                    console.log('currentSquare de la siguiente linea: '+currentLine.nextElementSibling);
+                    currentSquare = currentLine.firstElementChild;
+
+                    wordInserted = "";
+                    letterOfWordToGuess = [];
+                    idCurrentLetterOnSquare = [];
+                    //currentSquare.textContent = "";
+
+                }else{
+                    loadPage=true;
+                    reloadPage(loadPage);
+                }
             }
-        }
-           
-        
         } else {
             alert('No ingreso ninguna palabra, vuelve a intentarlo');
         }
@@ -448,21 +442,24 @@ function countItems(arr) {
 }
 
 function reloadPage() {
+    let delay;
     console.log('No hay mas lineas para escribir DEBERA EL LISTENER PARAR DE ESCUCHAR????');
     const loser = document.querySelector('h1');
 
     if(loadPage){
         loser.style.color = "red";
         loser.textContent += ' - You lose this Game';
-    
-        //this.location.reload();
-        setTimeout(function() {
-        location.reload();
-      }, 8000); // Refresh after 7 seconds   
-    }else{
+        delay = 8000;
+    }
+    else{
         loser.style.color = "blue";
         loser.textContent += ' - You WIN this Game';
+        delay = 4000;
+        loadPage=false;
     }
+    setTimeout(function() {
+        location.reload();
+        }, delay); // Refresh after 7 seconds   
 
 }
 
